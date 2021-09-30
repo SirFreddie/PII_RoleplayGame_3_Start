@@ -7,25 +7,22 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            SpellsBook book = new SpellsBook();
-            book.AddSpell(new SpellOne());
-            book.AddSpell(new SpellOne());
+            Orc azog = new Orc("Azog", 5);
+            Orc oli = new Orc("Oli", 2);
+            Orc israel = new Orc("Israel", 5);
+            Goblin gollum = new Goblin("Gollum", 1);
 
-            Wizard gandalf = new Wizard("Gandalf");
-            gandalf.AddItem(book);
-
+            Knight aragorn = new Knight("Aragorn");
             Dwarf gimli = new Dwarf("Gimli");
 
-            Console.WriteLine($"Gimli has ❤️ {gimli.Health}");
-            Console.WriteLine($"Gandalf attacks Gimli with ⚔️ {gandalf.AttackValue}");
+            Encounter battle = new Encounter();
 
-            gimli.ReceiveAttack(gandalf.AttackValue);
-
-            Console.WriteLine($"Gimli has ❤️ {gimli.Health}");
-
-            gimli.Cure();
-
-            Console.WriteLine($"Someone cured Gimli. Gimli now has ❤️ {gimli.Health}");
+            battle.AddEnemy(azog);
+            battle.AddEnemy(gollum);
+            battle.AddHero(aragorn);
+            battle.AddHero(gimli);
+ 
+            battle.DoEncounter();
         }
     }
 }
