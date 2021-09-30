@@ -6,7 +6,7 @@ namespace RoleplayGame
     {
         private int health = 100;
 
-        private List<IItem> items = new List<IItem>();
+        protected List<IItem> items = new List<IItem>();
 
         protected GenericCharacter(string name)
         {
@@ -15,7 +15,7 @@ namespace RoleplayGame
 
         public string Name { get; set; }
         
-        public int AttackValue
+        public virtual int AttackValue
         {
             get
             {
@@ -31,7 +31,7 @@ namespace RoleplayGame
             }
         }
 
-        public int DefenseValue
+        public virtual int DefenseValue
         {
             get
             {
