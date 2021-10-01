@@ -35,9 +35,9 @@ namespace RoleplayGame
                 while (this.enemies.Count > 0 && this.heroes.Count > 0)
                 {
                     enemyAttack();
-                    checkAndRemoveDeadHeroes(this.heroes);
+                    checkAndRemoveDeadHeroes();
                     heroAttack();
-                    checkAndRemoveDeadEnemies(this.enemies);
+                    checkAndRemoveDeadEnemies();
                     healHeroes();
                 }
                 printWinner();
@@ -95,22 +95,22 @@ namespace RoleplayGame
                     else
                     {
                         enemy.ReceiveAttack(hero.AttackValue);
-                        Console.WriteLine($"{hero.Name}:{hero.Health} attacks {enemy.Name}:{enemy.Health}");   
+                        Console.WriteLine($"{hero.Name}:{hero.Health} attacks {enemy.Name}:{enemy.Health} DMG {hero.AttackValue}");   
                     }
                 }
             }
         }
 
         // Verifica que entidades estan muertas y las quita de la lista.
-        private void checkAndRemoveDeadEnemies(List<Enemy> enemyList)
+        private void checkAndRemoveDeadEnemies()
         {
-            enemyList.RemoveAll((enemy) => enemy.Health <= 0);
+            this.enemies.RemoveAll((enemy) => enemy.Health <= 0);
         }
 
         // Verifica que heroes estan muertos y los quita de la lista.
-        private void checkAndRemoveDeadHeroes(List<Hero> heroList)
+        private void checkAndRemoveDeadHeroes()
         {
-            heroList.RemoveAll((hero) => hero.Health <= 0);
+            this.heroes.RemoveAll((hero) => hero.Health <= 0);
         }
 
 
