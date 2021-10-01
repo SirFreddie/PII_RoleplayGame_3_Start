@@ -47,37 +47,28 @@ namespace RoleplayGame
         // Ataque de los enemigos.
         private void enemyAttack()
         {
-            if (this.heroes.Count == 1)
+            float ratio = (float) this.heroes.Count / (float) this.enemies.Count;
+
+            for (int i = 0; i < this.enemies.Count; i++)
             {
-                foreach (Enemy enemy in this.enemies)
+                int target;
+
+                // Si el ratio es < 1.0 ; hay mas enemigos que heroes.
+                if (ratio < 1.0)
                 {
-                    this.heroes[0].ReceiveAttack(enemy.AttackValue);
-                    Console.WriteLine($"{enemy.Name}:{enemy.Health} attacks {this.heroes[0].Name}:{this.heroes[0].Health}");
+                    target = (int) Math.Floor(i * ratio);
                 }
-            }
-            else if (this.heroes.Count == this.enemies.Count)
-            {
-                for (int i = 0; i < this.heroes.Count; i++)
+                /*
+                Si el ratio es >= 1.0 entonces tengo la misma cantidad de heroes que de enemigos (1.0)
+                o mas heroes que enemigos (un numero > 1.0)
+                */
+                else
                 {
-                    this.heroes[i].ReceiveAttack(this.enemies[i].AttackValue);
-                    Console.WriteLine($"{this.enemies[i].Name}:{this.enemies[i].Health} attacks {this.heroes[i].Name}:{this.heroes[i].Health}");
+                    target = i;
                 }
-            }
-            else if (this.heroes.Count < this.enemies.Count)
-            {
-                for (int i = 0; i <= this.enemies.Count; i++)
-                {
-                    if ((i+1) >= this.enemies.Count)
-                    {
-                        this.heroes[i].ReceiveAttack(this.enemies[0].AttackValue);
-                        Console.WriteLine($"{this.enemies[0].Name}:{this.enemies[0].Health} attacks {this.heroes[i].Name}:{this.heroes[i].Health}");
-                    }
-                    else
-                    {
-                        this.heroes[i].ReceiveAttack(this.enemies[i+1].AttackValue);
-                        Console.WriteLine($"{this.enemies[i+1].Name}:{this.enemies[i+1].Health} attacks {this.heroes[i].Name}:{this.heroes[i].Health}");
-                    }
-                }
+
+                this.heroes[target].ReceiveAttack(this.enemies[i].AttackValue);
+                Console.WriteLine($"{this.enemies[i].Name}:{this.enemies[i].Health} attacks {this.heroes[target].Name}:{this.heroes[target].Health}");
             }
         }
 
