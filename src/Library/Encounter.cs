@@ -9,6 +9,22 @@ namespace RoleplayGame
         private List<Enemy> enemies = new List<Enemy>();
         private List<Hero> heroes = new List<Hero>();
 
+        public int EnemiesRemaining 
+        {
+            get
+            {
+                return this.enemies.Count;
+            }
+        }
+
+        public int HeroesRemmaining 
+        {
+            get
+            {
+                return this.heroes.Count;
+            }
+        }
+
         // Agrega un enemigo al encuentro.
         public void AddEnemy(Enemy enemy)
         {
@@ -46,7 +62,8 @@ namespace RoleplayGame
 
         // Ataque de los enemigos.
         private void enemyAttack()
-        {
+        {   
+            // Ratio de heroes a enemigos.
             float ratio = (float) this.heroes.Count / (float) this.enemies.Count;
 
             for (int i = 0; i < this.enemies.Count; i++)
@@ -69,6 +86,11 @@ namespace RoleplayGame
 
                 this.heroes[target].ReceiveAttack(this.enemies[i].AttackValue);
                 Console.WriteLine($"{this.enemies[i].Name}:{this.enemies[i].Health} attacks {this.heroes[target].Name}:{this.heroes[target].Health}");
+
+                if(this.heroes[target].Health <= 0)
+                {
+                    Console.WriteLine($"{this.heroes[target].Name} died!");
+                }
             }
         }
 
@@ -79,14 +101,13 @@ namespace RoleplayGame
             {
                 foreach (Enemy enemy in this.enemies)
                 {
+                    enemy.ReceiveAttack(hero.AttackValue);
+                    Console.WriteLine($"{hero.Name}:{hero.Health} attacks {enemy.Name}:{enemy.Health} DMG {hero.AttackValue}");  
+ 
                     if (enemy.Health <= 0)
                     {
                         Console.WriteLine($"{enemy.Name} died!");
-                    }
-                    else
-                    {
-                        enemy.ReceiveAttack(hero.AttackValue);
-                        Console.WriteLine($"{hero.Name}:{hero.Health} attacks {enemy.Name}:{enemy.Health} DMG {hero.AttackValue}");   
+                        hero.AddVp(enemy);
                     }
                 }
             }
