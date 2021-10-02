@@ -1,23 +1,21 @@
 using System.Collections.Generic;
+
 namespace RoleplayGame
 {
-    public class Archer: ICharacter
+    public abstract class GenericCharacter : ICharacter
     {
         private int health = 100;
 
-        private List<IItem> items = new List<IItem>();
+        protected List<IItem> items = new List<IItem>();
 
-        public Archer(string name)
+        protected GenericCharacter(string name)
         {
             this.Name = name;
-            
-            this.AddItem(new Bow());
-            this.AddItem(new Helmet());
         }
 
         public string Name { get; set; }
         
-        public int AttackValue
+        public virtual int AttackValue
         {
             get
             {
@@ -33,7 +31,7 @@ namespace RoleplayGame
             }
         }
 
-        public int DefenseValue
+        public virtual int DefenseValue
         {
             get
             {
@@ -55,7 +53,7 @@ namespace RoleplayGame
             {
                 return this.health;
             }
-            private set
+            protected set
             {
                 this.health = value < 0 ? 0 : value;
             }
