@@ -6,7 +6,7 @@ namespace RoleplayGame
         public Goblin(string name, int vpValue)
             : base(name, vpValue)
         {
-            this.AddItem(new Helmet());
+            this.Health = 5;
         }
     }
 }
